@@ -1,1 +1,60 @@
-hi
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .wrapper {
+            background: #fff;
+            padding: 40px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        .login {
+            display: flex;
+            flex-direction: column;
+        }
+        .login input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login button {
+            padding: 10px;
+            background-color: #7dcdfe;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <h1>티켓 히어로</h1>
+    <form class="login">
+        <input type="text" name="ID" placeholder="아이디" required>
+        <input type="password" name="password" placeholder="비밀번호" required>
+        <button type="submit">로그인</button>
+    </form>
+</div>
+</body>
+</html>
+
