@@ -34,6 +34,7 @@
             border-radius: 5px;
         }
         .login button {
+            margin: 5px;
             padding: 10px;
             background-color: #7dcdfe;
             color: white;
@@ -42,17 +43,18 @@
             cursor: pointer;
         }
         .login button:hover {
-            background-color: #4cae4c;
+            background-color: #18A1ED;
         }
     </style>
 </head>
 <body>
 <div class="wrapper">
     <h1>티켓 히어로</h1>
-    <form class="login">
+    <form class="login" action="/login" method="post">
         <input type="text" name="ID" placeholder="아이디" required>
         <input type="password" name="password" placeholder="비밀번호" required>
         <button type="submit">로그인</button>
+        <button type="submit">회원가입</button>
     </form>
 </div>
 </body>
