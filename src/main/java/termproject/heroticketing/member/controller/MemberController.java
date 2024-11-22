@@ -16,12 +16,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/signup")
+    @GetMapping("/add")
     public String signUpForm() {
         return "signUp-form";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/add")
     public String signUp(@ModelAttribute SignUpForm form) {
         memberService.signUp(form);
         return "redirect:/";

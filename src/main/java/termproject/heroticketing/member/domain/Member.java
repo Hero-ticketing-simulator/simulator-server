@@ -5,14 +5,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Builder;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String memberId;
     private String password;
     private MemberRole role;
 
@@ -20,8 +22,8 @@ public class Member {
     }
 
     @Builder
-    public Member(String name, String password, String role) {
-        this.name = name;
+    public Member(String memberId, String password, String role) {
+        this.memberId = memberId;
         this.password = password;
         this.role = MemberRole.valueOf(role.toUpperCase());
     }

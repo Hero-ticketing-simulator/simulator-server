@@ -13,7 +13,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     public void signUp(SignUpForm form) {
         Member member = Member.builder()
-                .name(form.getUsername())
+                .memberId(form.getLoginId())
                 .password(form.getPassword())
                 .role(form.getRole())
                 .build();
