@@ -12,7 +12,7 @@ body {
     background: #fff;
     padding: 40px 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
 }
 
@@ -21,11 +21,17 @@ form {
     flex-direction: column;
 }
 
-form input {
+form input,
+form select {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+}
+
+form label {
+    font-weight: bold; /* 글씨를 굵게 */
+    margin-bottom: 5px; /* 드롭다운과의 간격을 띄움 */
 }
 
 form button {
