@@ -7,6 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>회원가입</title>
     <link rel="stylesheet" th:href="@{/style.css}" />
+    <script>
+        function validateForm(event) {
+            const password = document.querySelector('input[name="password"]').value;
+            const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
+
+            if (password !== confirmPassword) {
+                event.preventDefault(); // 폼 제출 방지
+                alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요."); // 경고 메시지
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.register');
+            form.addEventListener('submit', validateForm);
+        });
+    </script>
 </head>
 <body>
 <div class="wrapper">
