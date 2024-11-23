@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white; /* 전체 배경을 흰색으로 설정 */
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* 전체 화면 높이 설정 */
+}
+
+.background-wrapper {
+    background-color: #f4f4f4; /* 내부 콘텐츠 배경색 */
+    max-width: 1200px; /* 최대 너비를 1200px로 설정 */
+    margin: 0 auto;   /* 중앙 정렬 */
+    padding-bottom: 60px; /* 푸터 높이 만큼 여백 추가 */
+    position: relative; /* 푸터를 상대적으로 위치시키기 위해 필요 */
+}
+
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px; /* 패딩 증가 */
+    text-align: center;
+    width: 100%; /* 전체 너비 */
+    box-sizing: border-box; /* 패딩 포함 */
+}
+
+.header nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* 여백 제거 */
+}
+
+.header nav ul li {
+    display: inline;
+    margin: 0 15px; /* 여백 조정 */
+}
+
+.header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    padding: 20px; /* 패딩 증가 */
+}
+
+.event-list {
+    text-align: center;
+    width: 100%;
+}
+
+.event-list h2 {
+    margin-bottom: 20px; /* 제목 아래 여백 조정 */
+}
+
+.event-cards {
+    display: flex; /* 카드들을 가로로 정렬 */
+    flex-wrap: wrap; /* 줄 바꿈 가능 */
+    justify-content: center; /* 중앙 정렬 */
+}
+
+.event-card {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px; /* 카드 간의 여백 조정 */
+    padding: 10px; /* 카드 안의 패딩 조정 */
+    width: 200px; /* 카드의 너비 설정 */
+    text-align: center;
+}
+
+.event-card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.event-card h3 {
+    margin: 10px 0;
+}
+
+.event-card button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px; /* 버튼 패딩 증가 */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.event-card button:hover {
+    background-color: #0056b3;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px; /* 패딩 증가 */
+    background-color: #007bff;
+    color: white;
+    width: 100%; /* 전체 너비 */
+    box-sizing: border-box; /* 패딩 포함 */
+    position: absolute; /* 절대 위치 설정 */
+    bottom: 0; /* 화면 하단에 고정 */
+}
