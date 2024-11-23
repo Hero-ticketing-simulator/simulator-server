@@ -1,6 +1,7 @@
 package termproject.heroticketing.member.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import termproject.heroticketing.member.dto.SignUpForm;
 import termproject.heroticketing.member.service.MemberService;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/members")
 public class MemberController {
