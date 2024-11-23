@@ -1,23 +1,26 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>티켓 히어로</title>
+    <title>회원가입</title>
     <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
 <div class="wrapper">
     <h1>티켓 히어로</h1>
-    <form class="login" th:action="@{/login}" method="post">
+    <form class="register" th:action="@{/add}" method="post">
+        <h2>회원가입</h2>
+        <input type="text" name="username" placeholder="사용자 이름" required>
         <input type="text" name="ID" placeholder="아이디" required>
         <input type="password" name="password" placeholder="비밀번호" required>
-        <button type="submit">로그인</button>
-    </form>
-    <form class="login" th:action="@{/members/add}" method="get">
+        <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required>
         <button type="submit">회원가입</button>
+    </form>
+    <form class="register" th:action="@{/}" method="get">
+        <button type="submit">취소</button>
     </form>
 </div>
 </body>
