@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>티켓 히어로</title>
+    <link rel="stylesheet" th:href="@{/style_main.css}" />
+</head>
+<body>
+<div class="background-wrapper">
+    <header class="header">
+        <h1>티켓 히어로</h1>
+        <nav>
+            <ul>
+                <li><a href="#" th:href="@{/main}">홈</a></li>
+                <li><a href="#" th:href="@{/events}">공연</a></li>
+                <li><a href="#" th:href="@{/mypage}">마이 페이지</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="event-list">
+        <div class="container">
+            <h2>현재 진행 중인 공연</h2>
+            <div class="event-cards" th:each="event : ${events}">
+                <div class="event-card">
+                    <img th:src="@{${event.image}}" alt="공연 이미지" />
+                    <h3 th:text="${event.title}">공연 제목</h3>
+                    <p th:text="${event.date}">공연 날짜</p>
+                    <button th:onclick="'location.href=\'/events/' + ${event.id} + '\'">예매하기</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 티켓 히어로. All rights reserved.</p>
+    </footer>
+</div>
+</body>
+</html>
