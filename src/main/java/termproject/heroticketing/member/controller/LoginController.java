@@ -21,20 +21,24 @@ public class LoginController {
     private final LoginService loginService;
 
     @GetMapping("/")
-    public String hone() {
-        return "index";
+    public String home(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "index";
+        }
+        return "main";
     }
 
     @GetMapping("/login")
     public String loginFrom() {
-        return "login/loginForm";
+        return "index";
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute LoginForm form, HttpServletRequest request) {
         Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
         if (loginMember == null) {
-            return "login/loginForm";
+            return "index";
         }
 
         // 로그인 성공 동작

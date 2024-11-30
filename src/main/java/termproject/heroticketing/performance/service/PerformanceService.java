@@ -28,6 +28,10 @@ public class PerformanceService {
         performanceRepository.save(savePerformance);
     }
 
+    public PerformanceResponse getPerformance(Long id) {
+        return performanceRepository.findById(id).map(PerformanceResponse::convertFromEntity).orElse(null);
+    }
+
     public List<PerformanceResponse> showAll() {
         List<Performance> allPerformance = performanceRepository.findAll();
         return allPerformance.stream()

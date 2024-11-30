@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import termproject.heroticketing.performance.domain.Performance;
 import termproject.heroticketing.performance.dto.PerformanceForm;
 import termproject.heroticketing.performance.dto.PerformanceResponse;
 import termproject.heroticketing.performance.service.PerformanceService;
@@ -23,7 +24,7 @@ public class PerformanceController {
 
     private final PerformanceService performanceService;
 
-    @GetMapping("")
+    @GetMapping
     public String showAll(Model model) {
         List<PerformanceResponse> result = performanceService.showAll();
         model.addAttribute("performances", result);
@@ -42,14 +43,17 @@ public class PerformanceController {
     }
 
     @GetMapping("/{id}")
-    public String editPerformanceForm(@PathVariable("id") Long id) {
+    public String editPerformanceForm(@PathVariable("id") Long id, Model model) {
+        PerformanceResponse performance = performanceService.getPerformance(id);
+        model.addAttribute("performance", performance);
         return "addPerformance-form";
     }
 
     @PutMapping("/{id}")
-    public String editPerformance(@ModelAttribute PerformanceForm form) {
+    public String editPerformance(@PathVariable("id") Long id, @ModelAttribute PerformanceForm form, Model model) {
         PerformanceForm editForm = performanceService.editPerformance(form);
-        return "reidrect:/addPerformance-form";
+        model.addAttribute("form", editForm);
+        return "redirect:/performances/" + id;
     }
 
     @DeleteMapping("/{id}")
