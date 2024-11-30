@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+        }
+        h1, h2 {
+            margin: 10px 0;
+        }
+        .user-info, .reservation-info {
+            margin-bottom: 20px;
+        }
+        .info-text {
+            margin: 5px 0;
+        }
+        .reservation-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .reservation-list li {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>마이페이지</h1>
+
+    <div class="user-info">
+        <h2>사용자 정보</h2>
+        <p class="info-text">이름: <span th:text="${user.name}">홍길동</span></p>
+        <p class="info-text">등급: <span th:text="${user.grade}">VIP</span></p>
+    </div>
+
+    <div class="reservation-info">
+        <h2>나의 좌석</h2>
+        <ul id="reservation-list" class="reservation-list" th:if="${!#lists.isEmpty(reservations)}">
+            <li th:each="reservation : ${reservations}">
+                <p class="info-text">공연 이름: <span th:text="${reservation.performanceName}">공연 이름</span></p>
+                <p class="info-text">공연 날짜: <span th:text="${reservation.date}">공연 날짜</span></p>
+                <p class="info-text">공연 시간: <span th:text="${reservation.time}">공연 시간</span></p>
+                <p class="info-text">좌석 번호: <span th:text="${reservation.seat}">좌석 번호</span></p>
+            </li>
+        </ul>
+        <p id="no-reservations" th:if="${#lists.isEmpty(reservations)}">예약 내역이 없습니다.</p>
+    </div>
+</div>
+</body>
+</html>
