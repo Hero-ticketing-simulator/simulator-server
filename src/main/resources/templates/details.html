@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좌석 선택</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .seating-chart {
+            padding: 20px;
+            text-align: center;
+        }
+        .seat {
+            display: inline-block;
+            width: 30px; /* 좌석 너비 */
+            height: 30px; /* 좌석 높이 */
+            background-color: lightgray;
+            text-align: center;
+            line-height: 30px; /* 텍스트 가운데 정렬 */
+            margin: 3px; /* 간격 */
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .seat.selected {
+            background-color: #18A1ED;
+        }
+        .payment-section {
+            margin-left: 20px;
+            border-left: 1px solid #ccc;
+            padding: 20px;
+            width: 200px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            margin: 10px 0;
+        }
+        .screen {
+            font-weight: bold;
+            font-size: 24px;
+            margin: 20px 0;
+            background-color: lightgray;
+            padding: 10px;
+        }
+        .info-text {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="seating-chart">
+        <h1>좌석 선택</h1>
+        <div class="info-text">* 스테이징 구역은 안전장소로 안내됩니다. 빠른 관람을 위해 예매해 주세요.</div>
+        <div class="screen">STAGE</div>
+
+        <!-- 좌석 배치 -->
+        <table>
+            <tbody>
+            <tr th:each="row, rowStat : ${rows}">
+                <td th:text="${row}"></td> <!-- 좌석 행 표시 -->
+                <td th:each="seatNum : ${rowStat.index < 8 ? 16 : 16 - (rowStat.index - 8) * 2}">
+                    <div class="seat" th:data-row="${row}" th:data-seat-number="${seatNum}" onclick="toggleSeat(this)">
+                        <span th:text="${seatNum}"></span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="payment-section">
+        <h2>예약 정보</h2>
+        <form id="reservation-form" action="@{/submit}" method="POST">
+            <input type="hidden" name="selectedSeats" id="selected-seats-input" value="">
+            <p>선택된 좌석 번호: <span id="selected-seats">없음</span></p>
+            <p>선택한 좌석 수: <span id="total-seat">0</span></p>
+            <button type="submit" id="payment-button" disabled>예매하기</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function toggleSeat(seat) {
+        seat.classList.toggle('selected');
+
+        const selectedSeats = document.querySelectorAll('.seat.selected');
+        const selectedSeatsText = Array.from(selectedSeats).map(seat => seat.dataset.row + seat.dataset.seatNumber).join(', ');
+
+        document.getElementById('selected-seats').innerText = selectedSeatsText.length > 0 ? selectedSeatsText : '없음';
+
+        // 선택된 좌석 정보를 input에 설정
+        document.getElementById('selected-seats-input').value = selectedSeatsText;
+
+        const totalSeatsCount = selectedSeats.length; // 선택된 좌석 수
+        document.getElementById('total-seat').innerText = totalSeatsCount; // 선택된 좌석 수 표시
+
+        const paymentButton = document.getElementById('payment-button');
+        paymentButton.disabled = totalSeatsCount === 0; // 선택된 좌석이 없으면 버튼 비활성화
+    }
+</script>
+</body>
+</html>
