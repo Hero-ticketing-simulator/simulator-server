@@ -4,10 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import termproject.heroticketing.member.domain.Member;
+import termproject.heroticketing.seat.model.Seat;
 
 @Entity
 @Getter
@@ -25,6 +32,13 @@ public class Performance {
     private Integer totalSeat;
     private Integer remainingSeat;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "performance")
+    private List<Seat> seats = new ArrayList<>();
+
     public Performance() {
     }
 
@@ -39,5 +53,15 @@ public class Performance {
         this.endReservationTime = endReservationTime;
         this.totalSeat = totalSeat;
         this.remainingSeat = remainingSeat;
+    }
+
+    public void addSeat(Seat seat) {
+        seats.add(seat);
+        seat.setPerformance(this);
+    }
+
+    public void deleteSeat(Seat seat) {
+        seats.remove(seat);
+        seat.setPerformance(null);
     }
 }
