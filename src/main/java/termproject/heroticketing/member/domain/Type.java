@@ -1,6 +1,6 @@
 package termproject.heroticketing.member.domain;
 
-public enum String {
+public enum Type {
     NORMAL,
     VIP,
     PERFORMER,
