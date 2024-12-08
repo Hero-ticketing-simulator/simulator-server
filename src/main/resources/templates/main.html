@@ -4,32 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>티켓 히어로</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/style_main.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4; /* 배경색을 연한 회색으로 설정 */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* 전체 화면 높이 설정 */
+        }
+
+        .header {
+            background-color: #007bff; /* 헤더 배경색 */
+            color: white;
+            padding: 15px; /* 패딩 증가 */
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px; /* 패딩 증가 */
+            background-color: #007bff;
+            color: white;
+            margin-top: auto; /* 푸터를 아래로 밀어내기 */
+        }
+
+        .event-card {
+            min-height: 400px; /* 카드 최소 높이 설정 */
+        }
+
+        .register-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s; /* 부드러운 전환 효과 */
+        }
+
+        .register-button:hover {
+            background-color: #218838; /* 호버 시 색상 변경 */
+        }
+
+        .space {
+            margin-bottom: 40px; /* 여백 조정 */
+        }
+    </style>
 </head>
 <body>
-<div class="background-wrapper">
+<div class="container">
     <header class="header">
         <h1>티켓 히어로</h1>
         <nav>
-            <ul>
-                <li><a href="#" th:href="@{/main}">홈</a></li>
-                <li><a href="#" th:href="@{/events}">공연</a></li>
-                <li><a href="#" th:href="@{/mypage}">마이 페이지</a></li>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/}">홈</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/performances}">공연</a>
+                </li>
+                <li class="nav-item">
+                    <form id="mypageForm" th:action="@{/mypage}" method="get">
+                        <button type="submit" class="nav-link text-white" style="background: none; border: none; cursor: pointer;">마이 페이지</button>
+                    </form>
+                </li>
             </ul>
         </nav>
     </header>
 
-    <main class="event-list">
-        <div class="container">
-            <h2>현재 진행 중인 공연</h2>
-            <div class="event-cards" th:each="event : ${events}">
-                <div class="event-card">
-                    <img th:src="@{${event.image}}" alt="공연 이미지" />
-                    <h3 th:text="${event.title}">공연 제목</h3>
-                    <p th:text="${event.date}">공연 날짜</p>
-                    <button th:onclick="'location.href=\'/events/' + ${event.id} + '\'">예매하기</button>
-                </div>
-            </div>
+    <main class="event-list mt-4">
+        <h2 class="text-center" th:if="${#lists.isEmpty(performances)}">현재 진행 중인 공연이 없습니다.</h2>
+
+        <div th:if="${not #lists.isEmpty(performances)}">
+            <h3 class="text-center">현재 진행 중인 공연 목록</h3>
+            <ul class="list-group">
+                <li th:each="performance : ${performances}" class="list-group-item">
+                    <h5 th:text="${performance.name}">공연 제목</h5>
+                    <p th:text="'시작 시각: ' + ${performance.startPerformanceTime}">시작 시각</p>
+                    <p th:text="'종료 시각: ' + ${performance.endPerformanceTime}">종료 시각</p>
+                    <p th:text="'예약 시작: ' + ${performance.startReservationTime}">예약 시작 시각</p>
+                    <p th:text="'예약 종료: ' + ${performance.endReservationTime}">예약 종료 시각</p>
+                    <form th:action="@{/reservation/add}" method="get">
+                        <button type="submit" class="btn btn-primary">예매하기</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <!-- 공연 등록 버튼 -->
+        <div class="text-center space">
+            <form id="registerForm" th:action="@{/performances/add}" method="get">
+                <button type="submit" class="register-button" th:style="${loginMember.role == 'PERFORMER'} ? '' : 'display: none;'">공연 등록</button>
+            </form>
         </div>
     </main>
 
@@ -37,5 +103,38 @@
         <p>&copy; 2024 티켓 히어로. All rights reserved.</p>
     </footer>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 공연 날짜 설정
+        const eventDates = [
+            /* Thymeleaf에서 각 공연의 날짜를 가져와서 추가합니다 */
+            /* 예: new Date("2024-12-02T23:59:59"), */
+            /* 이 부분은 서버에서 실제 데이터로 대체됩니다 */
+        ];
+
+        // 남은 시간 계산 및 표시
+        eventDates.forEach((date, index) => {
+            const now = new Date();
+            const timeRemaining = date - now;
+
+            if (timeRemaining > 0) {
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+
+                document.getElementById(`countdown${index + 1}`).textContent =
+                    `예매 종료까지 남은 시간: ${days}일 ${hours}시간 ${minutes}분`;
+            } else {
+                document.getElementById(`countdown${index + 1}`).textContent =
+                    `예매가 종료되었습니다.`;
+            }
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

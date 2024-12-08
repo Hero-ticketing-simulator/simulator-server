@@ -28,7 +28,7 @@ public class PerformanceController {
     public String showAll(Model model) {
         List<PerformanceResponse> result = performanceService.showAll();
         model.addAttribute("performances", result);
-        return "performance";
+        return "main";
     }
 
     @GetMapping("/add")
@@ -39,7 +39,7 @@ public class PerformanceController {
     @PostMapping("/add")
     public String savePerformance(@ModelAttribute PerformanceForm form) {
         performanceService.savePerformance(form);
-        return "redirect:/performances";
+        return "redirect:/";
     }
 
     @GetMapping("/{id}")

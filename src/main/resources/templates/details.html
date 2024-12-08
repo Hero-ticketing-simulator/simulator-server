@@ -75,10 +75,9 @@
         <!-- 좌석 배치 -->
         <table>
             <tbody>
-            <tr th:each="row, rowStat : ${rows}">
-                <td th:text="${row}"></td> <!-- 좌석 행 표시 -->
-                <td th:each="seatNum : ${rowStat.index < 8 ? 16 : 16 - (rowStat.index - 8) * 2}">
-                    <div class="seat" th:data-row="${row}" th:data-seat-number="${seatNum}" onclick="toggleSeat(this)">
+            <tr>
+                <td th:each="seatNum : ${#numbers.sequence(1, 30)}">
+                    <div class="seat" th:data-seat-number="${seatNum}" onclick="toggleSeat(this)">
                         <span th:text="${seatNum}"></span>
                     </div>
                 </td>
@@ -103,7 +102,7 @@
         seat.classList.toggle('selected');
 
         const selectedSeats = document.querySelectorAll('.seat.selected');
-        const selectedSeatsText = Array.from(selectedSeats).map(seat => seat.dataset.row + seat.dataset.seatNumber).join(', ');
+        const selectedSeatsText = Array.from(selectedSeats).map(seat => seat.dataset.seatNumber).join(', ');
 
         document.getElementById('selected-seats').innerText = selectedSeatsText.length > 0 ? selectedSeatsText : '없음';
 
