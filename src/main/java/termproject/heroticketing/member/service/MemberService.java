@@ -12,9 +12,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     public void signUp(SignUpForm form) {
-        Member.builder()
-                .loginId(form.getLoginId())
-                .build();
         Member member = Member.builder()
                 .loginId(form.getLoginId())
                 .password(form.getPassword())
