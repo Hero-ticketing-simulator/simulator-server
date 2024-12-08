@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공연 등록</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px; /* 최대 너비를 400px로 줄임 */
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1><strong>공연 등록</strong></h1>
+    <form id="eventForm" th:action="@{/performances/add}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">공연 제목:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="startPerformanceTime">공연 시작 시각:</label>
+            <input type="datetime-local" class="form-control" id="startPerformanceTime" name="startPerformanceTime" required>
+        </div>
+
+        <div class="form-group">
+            <label for="endPerformanceTime">공연 종료 시각:</label>
+            <input type="datetime-local" class="form-control" id="endPerformanceTime" name="endPerformanceTime" required>
+        </div>
+
+        <div class="form-group">
+            <label for="startReservationTime">예매 시작 시각:</label>
+            <input type="datetime-local" class="form-control" id="startReservationTime" name="startReservationTime" required>
+        </div>
+
+        <div class="form-group">
+            <label for="endReservationTime">예매 종료 시각:</label>
+            <input type="datetime-local" class="form-control" id="endReservationTime" name="endReservationTime" required>
+        </div>
+
+        <div class="form-group">
+            <label for="totalSeat">총 좌석 수:</label>
+            <input type="number" class="form-control" id="totalSeat" name="totalSeat" min="1" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">등록하기</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

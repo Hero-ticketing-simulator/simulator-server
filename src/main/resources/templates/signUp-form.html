@@ -27,10 +27,10 @@
 <body>
 <div class="wrapper">
     <h1>티켓 히어로</h1>
-    <form class="register" th:action="@{/add}" method="post">
+    <form class="register" th:action="@{/members/add}" method="post">
         <h2>회원가입</h2>
         <input type="text" name="username" placeholder="사용자 이름" required>
-        <input type="text" name="ID" placeholder="아이디" required>
+        <input type="text" name="loginId" placeholder="아이디" required>
         <input type="password" name="password" placeholder="비밀번호" required>
         <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required>
 

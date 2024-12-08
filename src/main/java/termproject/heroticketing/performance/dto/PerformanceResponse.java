@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import termproject.heroticketing.performance.domain.Performance;
 
 @RequiredArgsConstructor
 @Getter
+@ToString
 public class PerformanceResponse {
     private String name;
     private LocalDateTime startPerformanceTime;
@@ -32,6 +34,7 @@ public class PerformanceResponse {
 
     public static PerformanceResponse convertFromEntity(Performance performance) {
         return PerformanceResponse.builder()
+                .name(performance.getName())
                 .startPerformanceTime(performance.getStartPerformanceTime())
                 .endPerformanceTime(performance.getEndPerformanceTime())
                 .startReservationTime(performance.getStartReservationTime())
